@@ -44,11 +44,11 @@ io.on('connection', (socket) => {
         io.to(roomID).emit('joined-friend-room', { opponentName, isMyTurn });
     });
 
-    socket.on('user-played', ({idx,roomID}) => {
+    socket.on('user-played', ({ idx, roomID }) => {
         socket.broadcast.to(roomID).emit('play-changes', idx);
     })
 });
 
-server.listen(3001, '0.0.0.0', () => {
+server.listen(process.env.PORT || 3001, '0.0.0.0', () => {
     console.log('Server is listening...')
 })
