@@ -10,40 +10,14 @@ const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: '*'
-    }
+    },
+    allowEIO3: true
 })
 
 let connectedUsers = [];
 let opponentName = '';
 let myturn;
 
-// io.on('connection', (socket) => {
-//     console.log(`Connected: ${socket.id}`)
-//     connectedUsers.push(socket.id)
-//     console.log(connectedUsers)
-
-//     // socket.on('send-message', (message) => {
-//     //     io.emit('receive-message', message)
-//     // });
-
-//     socket.on('join-room', roomID => {
-//         socket.join(roomID);
-//     });
-
-//     socket.on('send-private-msg', ({ msg, roomID }) => {
-//         io.to(roomID).emit('receive-private-msg', msg);
-//     });
-// });
-
-
-
-// app.get('/', (req, res) => {
-//     res.send("salam")
-// })
-
-// app.listen(3000, () => {
-//     console.log('Listening...')
-// })
 
 app.use(cors());
 
@@ -58,7 +32,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('generate-room', ({ roomID, username, isMyTurn }) => {
-        // console.log(username)
         socket.join(roomID);
         opponentName = username;
         myturn = isMyTurn;
